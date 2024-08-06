@@ -1,6 +1,6 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
-export const Counter: FC = () => {
+export const Counter = () => {
   const [count, setCount] = useState(0)
   return (
     <div className="card">

@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { FC } from 'react'
 import { api } from '../api'
 
-export const LeadsList: FC = () => {
+export const LeadsList = () => {
   const leads = useQuery({
     queryKey: ['leads', 'getMany'],
     queryFn: async () => api.leads.getMany(),
@@ -17,14 +16,27 @@ export const LeadsList: FC = () => {
       <p>
         <code>POST</code> <code>/leads</code>
       </p>
-      <ul className="lead-list">
-        {leads.data?.map((lead) => (
-          <li key={lead.id}>
-            {lead.firstName} <span style={{ color: '#CCC' }}>-</span>{' '}
-            <span style={{ color: '#999' }}>{lead.email}</span>
-          </li>
-        ))}
-      </ul>
+      <table className="lead-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leads.data?.map((lead) => (
+            <tr key={lead.id}>
+              <td>{lead.firstName}</td>
+              <td>{lead.email}</td>
+              <td>
+                <button>Edit</button>
+                <button>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
