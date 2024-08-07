@@ -1,5 +1,5 @@
 import  { useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '../api';
 import EditMessageModal from './EditMessageModal';
 
@@ -37,6 +37,23 @@ export const LeadsList = () => {
     );
   };
 
+  const guessGenderMutation = useMutation({
+    mutationFn: async ({ leadId, firstName }: { leadId: number; firstName: string }) => {
+      const response = await api.leads.guessGender({ id: leadId, name: firstName });
+      return { leadId, gender: response.gender };
+    },
+    onSuccess: (data: { leadId: number; gender: string }) => {
+      queryClient.setQueryData(['leads', 'getMany'], (oldData: any) => {
+        return oldData.map((lead: any) =>
+          lead.id === data.leadId ? { ...lead, gender: data.gender } : lead
+        );
+      });
+    },
+  });
+
+  const handleGuessGender = (leadId: number, firstName: string) => {
+    guessGenderMutation.mutate({ leadId, firstName });
+  };
   const handleDeleteSelected = async () => {
     try {
       console.log(`Attempting to delete leads with IDs: ${selectedLeads}`);
@@ -123,6 +140,7 @@ export const LeadsList = () => {
     }
   };
 
+  
   if (leads.isLoading) return <div>Loading...</div>;
   if (leads.isError) return <div>Error: {leads.error.message}</div>;
 
@@ -154,6 +172,7 @@ export const LeadsList = () => {
           <th>Select</th>
           <th>First Name</th>
           <th>Last Name</th>
+          <th>Gender</th>
           <th>Country</th>
           <th>Job Position</th>
           <th>Email</th>
@@ -175,6 +194,7 @@ export const LeadsList = () => {
              </td>
               <td>{lead.firstName}</td>
               <td>{lead.lastName}</td>
+              <td>{lead.gender || ''}</td>
               <td>{lead.countryCode}</td>
               <td>{lead.jobTitle}</td>
               <td>{lead.email}</td>
@@ -185,6 +205,7 @@ export const LeadsList = () => {
                 <button>Edit</button>
                 <button onClick={() => handleDelete(lead.id)}>Delete</button>
                 <button onClick={() => handleGenerateMessage(lead)}>Generate Message</button>
+                <button onClick={() => handleGuessGender(lead.id, lead.firstName)}>Guess Gender</button>
               </td>
           </tr>
         ))}

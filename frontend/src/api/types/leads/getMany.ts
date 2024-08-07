@@ -4,6 +4,7 @@ export type LeadsGetManyOutput = {
   id: number
   firstName: string
   lastName: string
+  gender: string
   countryCode: string
   jobTitle: string
   email: string

@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import express, { Request, Response } from 'express'
 import cors from 'cors' 
+import axios from 'axios'
 const prisma = new PrismaClient()
 const app = express()
 app.use(express.json())
@@ -27,6 +28,40 @@ app.post('/leads', async (req: Request, res: Response) => {
   })
   res.json(lead)
 })
+
+app.post('/leads/:id/guess-gender', async (req: Request, res: Response) => {
+  const { id, name } = req.params;
+  
+  const lead = await prisma.lead.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  if (!lead) {
+    return res.status(404).json({ message: 'Lead not found' });
+  }
+
+  try {
+    const response = await axios.get(`https://api.genderize.io?name=${name}`);
+    const gender = response.data.gender;
+
+    const updatedLead = await prisma.lead.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        gender: gender,
+      },
+    });
+
+    res.json(updatedLead);
+  } catch (error) {
+    console.error('Error guessing gender:', error);
+    res.status(500).json({ message: 'Error guessing gender' });
+  }
+});
+
 
 app.get('/leads/:id', async (req: Request, res: Response) => {
   const { id } = req.params
