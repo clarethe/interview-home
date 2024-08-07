@@ -21,14 +21,19 @@ const EditMessageModal: React.FC<EditMessageModalProps> = ({
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Edit Message"
+      ariaHideApp={false} 
     >
       <h2>Edit Message</h2>
       <textarea
         value={editableMessage}
         onChange={(e) => setEditableMessage(e.target.value)}
+        rows={10}
+        cols={50}
       />
-      <button onClick={handleSaveMessage}>Save</button>
-      <button onClick={onRequestClose}>Cancel</button>
+      <div>
+        <button onClick={handleSaveMessage}>Save</button>
+        <button onClick={onRequestClose}>Cancel</button>
+      </div>
     </Modal>
   );
 };
