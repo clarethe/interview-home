@@ -20,9 +20,10 @@ export const LeadsList = () => {
     queryKey: ['leads', 'getMany'],
     queryFn: async () => api.leads.getMany(),
   });
-
+ 
   const handleSelectLead = (leadId: number) => {
     setSelectedLeads((prevSelected) =>
+
       prevSelected.includes(leadId)
         ? prevSelected.filter((id) => id !== leadId)
         : [...prevSelected, leadId]
@@ -85,15 +86,23 @@ export const LeadsList = () => {
     <p>
       <code>POST</code> <code>/leads</code>
     </p>
-    <button onClick={handleDeleteSelected} disabled={selectedLeads.length === 0}>
-      Delete Selected
-    </button>
+    <div> 
+      <span> {selectedLeads.length} selected</span> 
+      <button onClick={handleDeleteSelected} disabled={selectedLeads.length === 0}>
+        Delete Selected
+      </button>
+    </div>
     <table className="lead-table">
       <thead>
         <tr>
           <th>Select</th>
           <th>First Name</th>
+          <th>Last Name</th>
+          <th>Country</th>
+          <th>Job Position</th>
           <th>Email</th>
+          <th>Created At</th>
+          <th>Updated At</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -106,13 +115,18 @@ export const LeadsList = () => {
                 checked={selectedLeads.includes(lead.id)}
                 onChange={() => handleSelectLead(lead.id)}
               />
-            </td>
-            <td>{lead.firstName}</td>
-            <td>{lead.email}</td>
-            <td>
-              <button>Edit</button>
-              <button onClick={() => handleDelete(lead.id)}>Delete</button>
-            </td>
+             </td>
+              <td>{lead.firstName}</td>
+              <td>{lead.lastName}</td>
+              <td>{lead.countryCode}</td>
+              <td>{lead.jobTitle}</td>
+              <td>{lead.email}</td>
+              <td>{new Date(lead.createdAt).toLocaleString()}</td>
+              <td>{new Date(lead.updatedAt).toLocaleString()}</td>
+              <td>
+                <button>Edit</button>
+                <button onClick={() => handleDelete(lead.id)}>Delete</button>
+              </td>
           </tr>
         ))}
       </tbody>
@@ -120,3 +134,4 @@ export const LeadsList = () => {
   </div>
 );
 };
+
