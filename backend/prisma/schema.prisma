@@ -14,6 +14,7 @@ model lead {
   firstName   String
   lastName    String?
   email       String?
+  message     String?
   jobTitle    String?
   countryCode String?
   companyName String?

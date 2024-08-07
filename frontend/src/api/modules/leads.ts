@@ -12,5 +12,5 @@ export const leadsApi = {
   create: endpoint<LeadsCreateOutput, LeadsCreateInput>('post', '/leads'),
   delete: endpoint<LeadsDeleteOutput, LeadsDeleteInput>('delete', ({ id }) => `/leads/${id}`),
   deleteMany: endpoint<LeadsDeleteManyOutput, LeadsDeleteManyInput>('delete', '/leads'),
-  update: endpoint<LeadsUpdateOutput, LeadsUpdateInput>('put', ({ id }) => `/leads/${id}`),
+  update: endpoint<LeadsUpdateOutput, LeadsUpdateInput>('patch', ({ id }) => `/leads/${id}`),
 } as const satisfies ApiModule

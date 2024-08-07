@@ -45,14 +45,13 @@ app.get('/leads', async (req: Request, res: Response) => {
 
 app.patch('/leads/:id', async (req: Request, res: Response) => {
   const { id } = req.params
-  const { name, email } = req.body
+  const { message } = req.body
   const lead = await prisma.lead.update({
     where: {
       id: Number(id),
     },
     data: {
-      firstName: String(name),
-      email: String(email),
+      message: String(message),
     },
   })
   res.json(lead)
