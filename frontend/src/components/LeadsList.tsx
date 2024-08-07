@@ -1,7 +1,7 @@
 import  { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '../api';
-
+import EditMessageModal from './EditMessageModal';
 
 interface ApiError {
   response?: {
@@ -17,6 +17,10 @@ export const LeadsList = () => {
   const [selectedLeads, setSelectedLeads] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState<string>('');
   
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editableMessage, setEditableMessage] = useState('');
+  const [currentLead, setCurrentLead] = useState<any>(null);
+
   const queryClient = useQueryClient();
 
   const leads = useQuery({
@@ -80,11 +84,20 @@ export const LeadsList = () => {
     }
   };
 
-  const handleGenerateMessage = async (lead: any) => {
+  const handleGenerateMessage = (lead: any) => {
     const message = `Hello ${lead.firstName} ${lead.lastName},\n\nWe would love to learn more about how you are doing at ${lead.companyName} and if you would be interested in new job opportunities.`;
-    console.log(message);
-    await handleUpdateLeadMessage(lead.id, message);
+    setEditableMessage(message);
+    setCurrentLead(lead);
+    setIsModalOpen(true);
   };
+
+  const handleSaveMessage = async () => {
+    if (currentLead) {
+      await handleUpdateLeadMessage(currentLead.id, editableMessage);
+      setIsModalOpen(false);
+    }
+  };
+  
   const handleUpdateLeadMessage = async (leadId: number, message: string) => {
     try {
       console.log(`Attempting to update lead with ID: ${leadId}`);
@@ -114,6 +127,7 @@ export const LeadsList = () => {
   if (leads.isError) return <div>Error: {leads.error.message}</div>;
 
   return (
+    <div>
   <div>
     <div> 
       <span> {selectedLeads.length} selected</span> 
@@ -176,6 +190,14 @@ export const LeadsList = () => {
         ))}
       </tbody>
     </table>
+  </div>
+    <EditMessageModal
+      isOpen={isModalOpen}
+      onRequestClose={() => setIsModalOpen(false)}
+      editableMessage={editableMessage}
+      setEditableMessage={setEditableMessage}
+      handleSaveMessage={handleSaveMessage}
+    />
   </div>
 );
 };
