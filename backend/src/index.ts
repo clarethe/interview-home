@@ -1,8 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 import express, { Request, Response } from 'express'
+import cors from 'cors' 
 const prisma = new PrismaClient()
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')

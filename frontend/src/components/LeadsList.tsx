@@ -1,14 +1,48 @@
-import { useQuery } from '@tanstack/react-query'
-import { api } from '../api'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { api } from '../api';
+
+interface ApiError {
+  response?: {
+    data: any;
+    status: number;
+    headers: any;
+  };
+  request?: any;
+  message: string;
+}
 
 export const LeadsList = () => {
+  const queryClient = useQueryClient();
+
   const leads = useQuery({
     queryKey: ['leads', 'getMany'],
     queryFn: async () => api.leads.getMany(),
-  })
+  });
 
-  if (leads.isLoading) return <div>Loading...</div>
-  if (leads.isError) return <div>Error: {leads.error.message}</div>
+  const handleDelete = async (leadId: number) => {
+    try {
+      console.log(`Attempting to delete lead with ID: ${leadId}`);
+      await api.leads.delete({ id: leadId });
+      queryClient.invalidateQueries({ queryKey: ['leads', 'getMany'] });
+      console.log('Deletion successful!');
+    } catch (error) {
+      const apiError = error as ApiError;
+      console.error('Error deleting lead:', apiError);
+      console.error('Full error object:', error);
+      if (apiError.response) {
+        console.error('Response data:', apiError.response.data);
+        console.error('Response status:', apiError.response.status);
+        console.error('Response headers:', apiError.response.headers);
+      } else if (apiError.request) {
+        console.error('Request data:', apiError.request);
+      } else {
+        console.error('Error message:', apiError.message);
+      }
+    }
+  };
+
+  if (leads.isLoading) return <div>Loading...</div>;
+  if (leads.isError) return <div>Error: {leads.error.message}</div>;
 
   return (
     <div>
@@ -31,12 +65,12 @@ export const LeadsList = () => {
               <td>{lead.email}</td>
               <td>
                 <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={() => handleDelete(lead.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
