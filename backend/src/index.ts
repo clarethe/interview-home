@@ -60,6 +60,7 @@ app.patch('/leads/:id', async (req: Request, res: Response) => {
 
 app.delete('/leads/:id', async (req: Request, res: Response) => {
   const { id } = req.params
+  
   await prisma.lead.delete({
     where: {
       id: Number(id),
@@ -67,6 +68,27 @@ app.delete('/leads/:id', async (req: Request, res: Response) => {
   })
   res.json()
 })
+
+app.delete('/leads', async (req: Request, res: Response) => {
+  const ids = req.query.ids as string[];  
+
+  const idsArray = ids.map(id => parseInt(id, 10)).filter(id => !isNaN(id)); 
+
+  try {
+    await Promise.all(idsArray.map(async (id: number) => {
+      await prisma.lead.delete({
+        where: {
+          id: id,
+        },
+      });
+    }));
+
+    res.json({ message: 'Leads deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting leads:', error);
+    res.status(500).json({ message: 'Error deleting leads' });
+  }
+});
 
 app.listen(4000, () => {
   console.log('Express server is running on port 4000')

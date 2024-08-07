@@ -1,5 +1,15 @@
-export type LeadsDeleteInput = {
-  id: number
+export interface LeadsDeleteInput {
+  id: number;
 }
 
-export type LeadsDeleteOutput = void
+export interface LeadsDeleteOutput {
+  success: boolean;
+}
+
+export interface LeadsDeleteManyInput {
+  ids: number[];
+}
+
+export interface LeadsDeleteManyOutput {
+  success: boolean;
+}
