@@ -1,3 +1,7 @@
+## Interview Home
+
+<img width="1677" alt="image" src="https://github.com/user-attachments/assets/31bee068-528a-4b7a-9132-9eaf17f6a69b">
+
 # Genesy AI Fullstack Developer | Take-Home Assignment C
 
 ## Overview
