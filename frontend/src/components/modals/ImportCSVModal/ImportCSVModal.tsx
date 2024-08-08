@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import Modal from 'react-modal';
+import './importCSVModal.scss';
 
 interface ImportCSVModalProps {
   isOpen: boolean;

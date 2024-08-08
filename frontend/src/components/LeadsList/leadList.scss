@@ -1,0 +1,179 @@
+#root {
+  width: 100%;
+  background: url('../../public/background.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.main {
+  max-width: 1450px;
+}
+.lead-table-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 200;
+  margin-top: 70px;
+  margin-bottom: 150px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+    &:disabled {
+      background-color: #d9d9d9;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+}
+
+.table-wrapper {
+  
+  max-height: 1000px; /* Altura máxima deseada para la tabla */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+}
+
+.lead-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f1f1f1;
+    font-weight: 300;
+    height: 45px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  th, .td-first-name, .td-last-name, .td-gender, .td-country-code, .td-job-title, .td-email, .td-message, .td-created-at, .td-updated-at {
+    padding-left: 20px;
+  }
+
+  .th-select { width: 40px; }
+  .th-first-name { width: 78px; }
+  .th-last-name { width: 73px; }
+  .th-gender, .th-country, .th-job-position { width: 73px; }
+  .th-email { width: 0; }
+  .th-message { width: 500px; }
+  .th-created-at { width: 107px; }
+  .th-updated-at { width: 115px; }
+  .th-action-delete { width: 140px; }
+
+  .td-first-name { padding-left: 5px; }
+  .td-gender { padding-left: 28px; }
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Estilo general para todos los botones */
+.button-container button,
+.btn-generate-message,
+.btn-guess-gender,
+.btn-delete {
+  margin: 10px 8px;
+  padding: 8px 16px;
+  height: 38px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Botón genérico con tema lila */
+.button-container button {
+  background-color: #6a1b9a; /* Lila oscuro */
+}
+
+.button-container button:hover {
+  background-color: #8e24aa; /* Lila más claro al pasar el ratón */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-container button:active {
+  background-color: #4a0072; /* Lila aún más oscuro cuando se hace clic */
+}
+
+.button-container button:disabled {
+  background-color: #d1c4e9; /* Lila claro para estado deshabilitado */
+  cursor: not-allowed;
+}
+
+/* Botón de generar mensaje */
+.btn-generate-message {
+  height: 63px;
+  background-color: #1976d2; /* Azul profesional */
+  margin-bottom: 15px;
+}
+
+.btn-generate-message:hover {
+  background-color: #2196f3; /* Azul más claro al pasar el ratón */
+}
+
+.btn-generate-message:active {
+  background-color: #1565c0; /* Azul más oscuro cuando se hace clic */
+}
+
+.btn-generate-message:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.5); /* Sombra azul clara en foco */
+}
+
+/* Botón de adivinar género */
+.btn-guess-gender {
+  height: 66px;
+  background-color: #43a047; /* Verde suave */
+}
+
+.btn-guess-gender:hover {
+  background-color: #66bb6a; /* Verde más claro al pasar el ratón */
+}
+
+.btn-guess-gender:active {
+  background-color: #388e3c; /* Verde más oscuro cuando se hace clic */
+}
+
+.btn-guess-gender:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.5); /* Sombra verde clara en foco */
+}
+
+/* Botón de eliminar */
+.btn-delete {
+  background-color: #d32f2f; /* Rojo oscuro */
+}
+
+.btn-delete:hover {
+  background-color: #f44336; /* Rojo más claro al pasar el ratón */
+}
+
+.btn-delete:active {
+  background-color: #b71c1c; /* Rojo más oscuro cuando se hace clic */
+}
+
