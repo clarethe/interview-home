@@ -1,0 +1,80 @@
+// Asegúrate de que el modal esté centrado y tenga un margen adecuado
+.ReactModal__Overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ReactModal__Content {
+    max-width: 500px;
+    width: 90%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: auto; // Asegura que el modal esté centrado horizontalmente
+}
+
+// Encabezado del modal
+h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+// Estilo del input de archivo
+input[type="file"] {
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+// Contenedor de botones para que estén al final
+.import-action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: auto; // Hace que el contenedor de los botones se empuje hacia el final del modal
+}
+
+// Estilo del botón de importar
+.import-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: #45a049;
+    }
+}
+
+// Estilo del botón de cancelar
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: #e53935;
+    }
+}

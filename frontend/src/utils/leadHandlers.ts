@@ -2,6 +2,7 @@ import Papa from 'papaparse';
 import { api } from '../api';
 import { QueryClient } from '@tanstack/react-query';
 import { Lead } from '../types';
+import { Dispatch, SetStateAction } from 'react';
 
 export const handleImport = (file: File, queryClient: QueryClient) => {
   Papa.parse(file, {
@@ -27,12 +28,13 @@ export const handleImport = (file: File, queryClient: QueryClient) => {
   });
 };
 
-export const handleDeleteSelected = async (selectedLeads: number[], queryClient: QueryClient) => {
+export const handleDeleteSelected = async (selectedLeads: number[], setSelectedLeads: Dispatch<SetStateAction<number[]>>, queryClient: QueryClient) => {
   try {
     console.log(`Attempting to delete leads with IDs: ${selectedLeads}`);
     const objectIds = { ids: selectedLeads };
     await api.leads.deleteMany(objectIds);
     queryClient.invalidateQueries({ queryKey: ['leads', 'getMany'] });
+    setSelectedLeads([]);
     console.log('Deletion successful!');
   } catch (error) {
     console.error('Error deleting leads:', error);

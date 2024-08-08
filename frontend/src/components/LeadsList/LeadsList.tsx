@@ -42,7 +42,7 @@ export const LeadsList = () => {
     <div className="lead-table-container">
       <div className="button-container">
         <span>{selectedLeads.length} selected</span>
-        <button onClick={() => handleDeleteSelected(selectedLeads, queryClient)} disabled={selectedLeads.length === 0}>
+        <button onClick={() => handleDeleteSelected(selectedLeads,setSelectedLeads, queryClient)} disabled={selectedLeads.length === 0}>
           Delete Selected
         </button>
         <button onClick={() => setIsImportModalOpen(true)}>

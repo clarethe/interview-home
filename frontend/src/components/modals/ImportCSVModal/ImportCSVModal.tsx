@@ -8,7 +8,7 @@ interface ImportCSVModalProps {
   handleImport: (file: File) => void;
 }
 
-const ImportCSVModal: React.FC<ImportCSVModalProps> = ({ isOpen, onRequestClose, handleImport }) => {
+function ImportCSVModal({ isOpen, onRequestClose, handleImport }: ImportCSVModalProps) {
   const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,10 +28,12 @@ const ImportCSVModal: React.FC<ImportCSVModalProps> = ({ isOpen, onRequestClose,
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <h2>Import Leads from CSV</h2>
       <input type="file" accept=".csv" onChange={handleFileChange} />
-      <button onClick={handleSubmit}>Import</button>
-      <button onClick={onRequestClose}>Cancel</button>
+      <div className='import-action-buttons'>
+        <button className='cancel-button'onClick={onRequestClose}>Cancel</button>
+        <button className='import-button' onClick={handleSubmit}>Import</button>
+      </div>
     </Modal>
   );
-};
+}
 
 export default ImportCSVModal;

@@ -56,7 +56,7 @@ class EditMessageModal extends Component<EditMessageModalProps, EditMessageModal
           cols={50}
         />
         <div className='edit-action-buttons'>
-          <button className='save-button'onClick={this.handleSave}>Save</button>
+          <button className='save-button' onClick={this.handleSave}>Save</button>
           <button className='delete-button' onClick={onRequestClose}>Cancel</button>
         </div>
       </Modal>
