@@ -1,0 +1,76 @@
+.ReactModal__Overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 700px;
+  }
+  
+.Modal__Content {
+    width: 500px;
+    max-width: 90%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+textarea {
+    width: 98%;
+    height: 400px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+    width: 200px;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    width: 200px;
+}
+
+.delete-button:hover {
+    background-color: #e53935;
+}
+
+.edit-action-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
